@@ -1,0 +1,124 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Admin User",
+      "email": "admin@example.com",
+      "password": "adminpassword",
+      "role": "admin"
+    },
+    {
+      "id": "2",
+      "name": "Employee One",
+      "email": "employee1@example.com",
+      "password": "password1",
+      "role": "employee"
+    },
+    {
+      "id": "3",
+      "name": "Employee Two",
+      "email": "employee2@example.com",
+      "password": "password2",
+      "role": "employee"
+    },
+    {
+      "id": "1039",
+      "name": "ABHISHEK PATNI",
+      "email": "abc@gmail.com",
+      "password": "123456789",
+      "role": "admin"
+    },
+    {
+      "id": "4031",
+      "name": "Nothing",
+      "email": "nothing@gmail.com",
+      "password": "123456789",
+      "role": "employee"
+    },
+    {
+      "id": "50c0",
+      "name": "ABHISHEK PATNI",
+      "email": "xyz@gmail.com",
+      "password": "1234567890",
+      "role": "employee"
+    }
+  ],
+  "scrums": [
+    {
+      "id": "1",
+      "name": "Scrum Team A"
+    },
+    {
+      "id": "2",
+      "name": "Scrum Team B"
+    },
+    {
+      "id": "1741933559689",
+      "name": "Scrum Team C"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Task One",
+      "description": "Description for Task One",
+      "status": "Done",
+      "scrumId": 1,
+      "assignedTo": 2,
+      "history": [
+        {
+          "status": "To Do",
+          "date": "2024-07-01"
+        },
+        {
+          "status": "Done",
+          "date": "2025-03-14"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Task Two",
+      "description": "Description for Task Two",
+      "status": "Done",
+      "scrumId": 2,
+      "assignedTo": 3,
+      "history": [
+        {
+          "status": "To Do",
+          "date": "2024-07-02"
+        },
+        {
+          "status": "In Progress",
+          "date": "2024-07-03"
+        },
+        {
+          "status": "In Progress",
+          "date": "2025-03-14"
+        },
+        {
+          "status": "Done",
+          "date": "2025-03-14"
+        }
+      ]
+    },
+    {
+      "id": "1741933559738",
+      "title": "CREATING TEAM C",
+      "description": "CERATING TEAM C FOR VALUE",
+      "status": "In Progress",
+      "scrumId": 1741933559689,
+      "assignedTo": 4031,
+      "history": [
+        {
+          "status": "To Do",
+          "date": "2025-03-14"
+        },
+        {
+          "status": "In Progress",
+          "date": "2025-03-14"
+        }
+      ]
+    }
+  ]
+}

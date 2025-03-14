@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "baseUrl": "."
+  },
+  "include": ["src", "jsconfig.json", "custom-reporter.js"]
+}
