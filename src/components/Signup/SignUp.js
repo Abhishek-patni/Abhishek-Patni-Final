@@ -16,19 +16,26 @@ const SignUp = () => {
         validationSchema: Yup.object({
             name: Yup.string().required('Name is required'),
             email: Yup.string()
-                .email('Invalid email format')
-                .required('Email is required'),
+                .matches(/@/, 'Email must contain @')
+                .required('Email is required')
+                .email('Invalid email format'),
             password: Yup.string().required('Password is required')
         }),
         onSubmit: async (values) => {
             try {
+                // Generate numeric ID using timestamp
+                const numericId = Date.now().toString();
+                
                 await axios.post('http://localhost:4000/users', {
-                    ...values,
+                    id: numericId,
+                    name: values.name,
+                    email: values.email,
+                    password: values.password,
                     role: 'employee'
                 });
                 history.push('/login');
             } catch (error) {
-                console.error('Error:', error);
+                console.error('Error signing up:', error);
             }
         }
     });
@@ -36,7 +43,7 @@ const SignUp = () => {
     return (
         <div>
             <h2>Sign Up</h2>
-            <form onSubmit={formik.handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <label>
                     Name:
                     <input
@@ -70,8 +77,8 @@ const SignUp = () => {
                 </label>
                 {formik.errors.password && <span style={{ color: 'red' }}>{formik.errors.password}</span>}
 
-                <button type="submit">Sign Up</button>
-            </form>
+                <button onClick={formik.handleSubmit}>Sign Up</button>
+            </div>
         </div>
     );
 };

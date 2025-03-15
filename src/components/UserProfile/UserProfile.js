@@ -15,9 +15,8 @@ const UserProfile = () => {
         const fetchUsers = async () => {
             try {
                 const response = await axios.get('http://localhost:4000/users');
-                const filteredUsers = response.data.filter(u => u?.role !== 'admin');
                 if (user?.role === 'admin') {
-                    setUsers(filteredUsers);
+                    setUsers(response.data.filter(u => u?.role !== 'admin'));
                 } else {
                     setSelectedUser(user);
                     fetchTasks(user?.id);
@@ -39,22 +38,9 @@ const UserProfile = () => {
     };
 
     const handleGetHistory = (userId) => {
-        const user = users.find(u => u?.id === userId);
-        setSelectedUser(user);
+        setSelectedUser(users.find(u => u?.id === userId));
         fetchTasks(userId);
     };
-
-    const renderTasks = (tasks) => (
-        <ul>
-            {tasks.map(task => (
-                <li key={task.id}>
-                    <strong>Title:</strong> {task.title} <br />
-                    <strong>Description:</strong> {task.description} <br />
-                    <strong>Status:</strong> {task.status}
-                </li>
-            ))}
-        </ul>
-    );
 
     return (
         <div>
@@ -81,7 +67,16 @@ const UserProfile = () => {
                             })}
                             onSubmit={async (values, { setSubmitting, resetForm }) => {
                                 try {
-                                    await axios.post('http://localhost:4000/users', values);
+                                    // Generate numeric ID using timestamp
+                                    const numericId = Date.now().toString();
+                                    
+                                    // Include the ID in the values object
+                                    const userWithId = {
+                                        ...values,
+                                        id: numericId
+                                    };
+                                    
+                                    await axios.post('http://localhost:4000/users', userWithId);
                                     const updatedUsers = await axios.get('http://localhost:4000/users');
                                     setUsers(updatedUsers.data.filter(u => u?.role !== 'admin'));
                                     setShowForm(false);
@@ -135,14 +130,30 @@ const UserProfile = () => {
             {user?.role !== 'admin' && (
                 <div>
                     <h3>Tasks Worked By {user?.name}</h3>
-                    {renderTasks(tasks)}
+                    <ul>
+                        {tasks.map(task => (
+                            <li key={task.id}>
+                                <strong>Title:</strong> {task.title} <br />
+                                <strong>Description:</strong> {task.description} <br />
+                                <strong>Status:</strong> {task.status}
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             )}
 
             {selectedUser && user?.role === 'admin' && (
                 <div>
                     <h3>Tasks Worked By {selectedUser.name}</h3>
-                    {renderTasks(tasks)}
+                    <ul>
+                        {tasks.map(task => (
+                            <li key={task.id}>
+                                <strong>Title:</strong> {task.title} <br />
+                                <strong>Description:</strong> {task.description} <br />
+                                <strong>Status:</strong> {task.status}
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             )}
         </div>
