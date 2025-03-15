@@ -30,7 +30,13 @@ const Nav = () => {
   const history = useHistory();
 
   const handleLogout = () => {
+    // Clear user data from localStorage
+    localStorage.removeItem('user');
+    
+    // Call the logout function from UserContext
     logout();
+    
+    // Redirect to login page
     history.push('/login');
   };
 

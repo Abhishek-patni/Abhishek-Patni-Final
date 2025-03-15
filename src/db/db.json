@@ -48,6 +48,27 @@
       "email": "Test12@gmail.com",
       "password": "123456789",
       "role": "employee"
+    },
+    {
+      "id": "1742041185743",
+      "name": "ABHISHEK PATNI",
+      "email": "xyz@gmail.com",
+      "password": "1234567890",
+      "role": "employee"
+    },
+    {
+      "id": "1742041270442",
+      "name": "ABHISHEK PATNI",
+      "email": "xyz@gmail.com",
+      "password": "1234567890",
+      "role": "employee"
+    },
+    {
+      "id": "1742041341889",
+      "name": "creato",
+      "email": "xyz@gmail.com",
+      "password": "1234567890",
+      "role": "employee"
     }
   ],
   "scrums": [

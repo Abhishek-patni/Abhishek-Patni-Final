@@ -21,7 +21,7 @@ const SignUp = () => {
                 .email('Invalid email format'),
             password: Yup.string().required('Password is required')
         }),
-        onSubmit: async (values) => {
+        onSubmit: async (values, { resetForm }) => {
             try {
                 // Generate numeric ID using timestamp
                 const numericId = Date.now().toString();
@@ -33,6 +33,10 @@ const SignUp = () => {
                     password: values.password,
                     role: 'employee'
                 });
+
+                // Reset 
+                resetForm();
+
                 history.push('/login');
             } catch (error) {
                 console.error('Error signing up:', error);
@@ -43,7 +47,7 @@ const SignUp = () => {
     return (
         <div>
             <h2>Sign Up</h2>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <div style={{ display: '-ms-grid', flexDirection: 'column', gap: '10px' }}>
                 <label>
                     Name:
                     <input
@@ -77,7 +81,7 @@ const SignUp = () => {
                 </label>
                 {formik.errors.password && <span style={{ color: 'red' }}>{formik.errors.password}</span>}
 
-                <button onClick={formik.handleSubmit}>Sign Up</button>
+                <button type="button" onClick={formik.handleSubmit}>Sign Up</button>
             </div>
         </div>
     );

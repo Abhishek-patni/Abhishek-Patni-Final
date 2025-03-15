@@ -3,23 +3,25 @@ import React, { createContext, useState, useEffect } from 'react';
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(() => {
+        return JSON.parse(localStorage.getItem('user')) || null;
+    });
 
     useEffect(() => {
-        const loggedInUser = JSON.parse(localStorage.getItem('user'));
-        if (loggedInUser) {
-            setUser(loggedInUser);
+        if (user) {
+            localStorage.setItem('user', JSON.stringify(user));
+        } else {
+            localStorage.removeItem('user');
         }
-    }, []);
+    }, [user]);
 
     const login = (userData) => {
-        localStorage.setItem('user', JSON.stringify(userData));
         setUser(userData);
     };
 
     const logout = () => {
-        localStorage.removeItem('user');
         setUser(null);
+        localStorage.removeItem('user'); 
     };
 
     return (

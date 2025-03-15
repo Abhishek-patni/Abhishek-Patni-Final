@@ -3,7 +3,6 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
-
 import { useFormik } from 'formik';
 
 const Login = () => {
@@ -21,7 +20,7 @@ const Login = () => {
                 .required('Email is required'),
             password: Yup.string().required('Password is required')
         }),
-        onSubmit: async (values) => {
+        onSubmit: async (values, { resetForm }) => {
             try {
                 const response = await axios.get(`http://localhost:4000/users`, {
                     params: {
@@ -29,15 +28,23 @@ const Login = () => {
                         password: values.password
                     }
                 });
+
                 if (response.data.length > 0) {
                     const user = response.data[0];
                     login(user);
+
+                    // Reset 
+                    resetForm();
+
+
                     history.push(user.role === 'admin' ? '/' : '/profiles');
                 } else {
                     alert('Invalid email or password');
+                    resetForm(); 
                 }
             } catch (error) {
                 console.error('Error logging in:', error);
+                resetForm();
             }
         }
     });
@@ -45,7 +52,7 @@ const Login = () => {
     return (
         <div>
             <h2>Login</h2>
-            <form onSubmit={formik.handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <form onSubmit={formik.handleSubmit} style={{ display: '-ms-grid', flexDirection: 'column', gap: '10px' }}>
                 <label>
                     Email:
                     <input
